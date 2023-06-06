@@ -8,7 +8,32 @@
  * @author sebac
  */
 public class Almacen implements IAlmacen {
+    
+    private Nodo<Producto> ListaProductos;
 
+    public Almacen() {
+    }
+    
+    public void AltaDeProductos(String Altas){             //SubParte A
+        String [] texto = ManejadorArchivosGenerico.leerArchivo(Altas);
+        for (String Contenido : texto) {
+            String [] Venta = Contenido.split(",");
+            String producto = Venta[0];
+            int cantidad = Integer.valueOf(Venta[1]);
+            this.agregarStock(producto, cantidad);
+        } 
+    }
+    
+    public void VentaDeProductos (String Ventas){       //SubParte B
+        String [] texto = ManejadorArchivosGenerico.leerArchivo(Ventas);
+        for (String Contenido : texto) {
+            String [] Venta = Contenido.split(",");
+            String producto = Venta[0];
+            int cantidad = Integer.valueOf(Venta[1]);
+            this.restarStock(producto, cantidad);
+        }
+    }
+    
     @Override
     public String getDireccion() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
